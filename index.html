@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css" integrity="sha512-xiunq9hpKsIcz42zt0o2vCo34xV0j6Ny8hgEylN3XBglZDtTZ2nwnqF/Z/TTCc18sGdvCjbFInNd++6q3J0N6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@8.5.1/themes/reset-min.css" integrity="sha256-KvFgFCzgqSErAPu6y9gz/AhZAvzK48VJASu3DpNLCEQ=" crossorigin="anonymous">
+    <title>Plan Comptable Général</title>
+  </head>
+  <body>
+    <div class="container" style="padding-top:4rem">
+      <div class="row">
+        <div class="column">
+          <h1>Plan Comptable Général</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <input id="searchbox" type="text">
+        </div>
+      </div>
+      <div class="row">
+        <div class="column">
+          <div id="hits-container"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.24.0/dist/algoliasearch-lite.umd.js" integrity="sha256-b2n6oSgG4C1stMT/yc/ChGszs9EY/Mhs6oltEjQbFCQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.75.1/dist/instantsearch.production.min.js" integrity="sha256-vCu88BK6WMUBmJHZuJ6B2ivD6+fq5Wv3/dy2F+QiGEQ=" crossorigin="anonymous"></script>
+    <script>
+      const searchClient = algoliasearch('W8X8C62BVI', 'f7ac1c4f7efb07467f2d841542a7dc7f');
+
+      const search = instantsearch({
+        indexName: 'pcg',
+  		  routing: true,
+  		  numberLocale: 'fr',
+        searchClient
+      });
+
+      search.addWidgets([
+        instantsearch.widgets.searchBox({
+  		    container: '#searchbox',
+  		    placeholder: 'Numéro, compte...',
+          autofocus: true,
+          showReset: true
+        }),
+
+        instantsearch.widgets.hits({
+          container: '#hits-container',
+          templates: {
+            empty: 'No results',
+            item: '<strong>{{prefix}}</strong>. {{name}}'
+          },
+          hitsPerPage: 1000
+        })
+      ]);
+
+      search.start();
+  	</script>
+  </body>
+</html>
